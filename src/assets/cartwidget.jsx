@@ -1,7 +1,7 @@
 import React from 'react';
 
 const CartWidget = () => {
-  const cartItemCount = 5; // Número hardcodeado (puedes cambiarlo)
+  const cartItemCount = 5; 
 
   return (
     <div className="cart-widget">

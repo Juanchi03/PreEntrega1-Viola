@@ -1,13 +1,21 @@
-import Navbar from './assets/components/navbar/navbar';
-import ItemListContainer from './assets/components/itemlistcontainer/itemlistcontainer';
+import React from 'react'
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
+import Navbar from './assets/navbar'
+import ItemListContainer from './assets/itemlistcontainer'
+import Detalles from './assets/ItemListDetail'
 
-function App() {
+const App = () => {
   return (
-   <>
-    <Navbar />
-    <ItemListContainer />
-   </>
+    <Router>
+      <div>
+      <Navbar />
+      <Routes>
+        <Route path="/" element={<ItemListContainer />} />
+        <Route path="/productos/:weaponId" element={<Detalles />} />
+      </Routes>
+      </div>
+    </Router>
   );
-}
+};
 
-export default App
+export default App;
