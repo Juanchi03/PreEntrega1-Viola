@@ -12,13 +12,7 @@ const Navbar = () => {
       <div className="collapse navbar-collapse" id="navbarNav">
         <ul className="navbar-nav ml-auto">
           <li className="nav-item">
-            <a className="nav-link" href="#">Inicio</a>
-          </li>
-          <li className="nav-item">
-            <a className="nav-link" href="#">Productos</a>
-          </li>
-          <li className="nav-item">
-            <Link to="/"></Link>
+            <Link to="/">Productos</Link>
           </li>
           <li className="nav-item">
             <CartWidget />

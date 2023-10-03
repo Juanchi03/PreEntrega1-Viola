@@ -40,8 +40,8 @@ const weaponsData = [
 ];
 
 const Detalles = () => {
-  const { id } = useParams();
-  const weapon = weaponsData.find(w => w.id === id);
+  const { weaponId } = useParams();
+  const weapon = weaponsData.find(w => w.id === weaponId);
 
   if (!weapon) {
     return <div>No se encontró el arma</div>;
