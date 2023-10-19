@@ -1,8 +1,7 @@
 import React from 'react';
-import CartWidget from './cartwidget';
-import { Link } from 'react-router-dom'
+import { Link } from 'react-router-dom';
 
-const Navbar = () => {
+const Navbar = ({ addToCart }) => {
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light">
       <a className="navbar-brand" href="#">Mi Tienda</a>
@@ -15,7 +14,9 @@ const Navbar = () => {
             <Link to="/">Productos</Link>
           </li>
           <li className="nav-item">
-            <CartWidget />
+            <Link to="/checkout"> {/* Agregamos un Link al componente Checkout */}
+              <i className="fas fa-shopping-cart"></i>
+            </Link>
           </li>
         </ul>
       </div>

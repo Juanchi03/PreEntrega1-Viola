@@ -1,13 +1,10 @@
 import React from 'react';
 
-const CartWidget = () => {
-  const cartItemCount = 5; 
-
+const CartWidget = ({ addToCart }) => {
   return (
-    <div className="cart-widget">
+    <button onClick={() => addToCart({ /* ...datos del artículo... */ })}>
       <i className="fas fa-shopping-cart"></i>
-      <span className="badge badge-pill badge-primary">{cartItemCount}</span>
-    </div>
+    </button>
   );
 };
 
