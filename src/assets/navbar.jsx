@@ -14,7 +14,7 @@ const Navbar = ({ addToCart }) => {
             <Link to="/">Productos</Link>
           </li>
           <li className="nav-item">
-            <Link to="/checkout"> {/* Agregamos un Link al componente Checkout */}
+            <Link to="/checkout"> 
               <i className="fas fa-shopping-cart"></i>
             </Link>
           </li>
