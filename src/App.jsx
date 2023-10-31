@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Navbar from './assets/navbar';
-import ItemList from './ItemList'; 
-import ItemDetailContainer from './ItemDetailContainer'; 
+import Navbar from './assets/navbar'; 
+import ItemListContainer from './assets/itemlistcontainer'; 
+import Detalles from './assets/ItemListDetail';
 import weaponsData from './weaponsData'; 
 import Checkout from './checkout';
+import { CartProvider } from './assets/cartcontext';
+import Pagos from './assets/pagos';
 
 const App = () => {
   const [cart, setCart] = useState([]);
@@ -15,14 +17,17 @@ const App = () => {
 
   return (
     <Router>
+      <CartProvider>
       <div>
         <Navbar addToCart={addToCart} />
         <Routes>
-          <Route path="/" element={<ItemList weapons={weaponsData} />} />
-          <Route path="/detalles/:weaponId" element={<ItemDetailContainer addToCart={addToCart} />} />
+          <Route path="/" element={<ItemListContainer weapons={weaponsData} />} />
+          <Route path="/detalles/:weaponId" element={<Detalles cartItems={cart} />} />
           <Route path="/checkout" element={<Checkout cart={cart} />} />
+          <Route path="/pagos" element={<Pagos />} />
         </Routes>
       </div>
+      </CartProvider>
     </Router>
   );
 };

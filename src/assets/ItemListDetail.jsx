@@ -1,27 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
-import firebase from 'firebase/app';
-import 'firebase/firestore';
+import weaponsData from '../weaponsData';
+import { useCart } from './cartcontext';
 
 const Detalles = () => {
-  const { productId } = useParams();
-  const [product, setProduct] = useState(null);
-  const [quantity, setQuantity] = useState(0);
-
-  useEffect(() => {
-    const productosRef = firebase.firestore().collection('productos');
-
-    const unsubscribe = productosRef.doc(productId).onSnapshot((doc) => {
-      if (doc.exists) {
-        const productData = doc.data();
-        setProduct(productData);
-      } else {
-        setProduct(null);
-      }
-    });
-
-    return () => unsubscribe();
-  }, [productId]);
+  const { weaponId } = useParams();
+  const { addToCart } = useCart();
+  const product = weaponsData.find(item => item.id === weaponId);
+  const [quantity, setQuantity] = useState(1);
 
   const handleAdd = () => {
     setQuantity(quantity + 1);
@@ -33,12 +19,26 @@ const Detalles = () => {
     }
   };
 
+  const handleAddToCart = () => {
+    const cartItem = {
+      id: weaponId,
+      name: product.name,
+      quantity: quantity,
+    };
+
+    addToCart(cartItem);
+
+    const existingCart = JSON.parse(localStorage.getItem('cart')) || [];
+    const updatedCart = [...existingCart, cartItem];
+    localStorage.setItem('cart', JSON.stringify(updatedCart));
+  };
+
   if (!product) {
     return <div>No se encontró el producto</div>;
   }
 
   return (
-    <div className="container">
+    <div className="container mt-4">
       <h2>{product.name}</h2>
       <div className="row">
         <div className="col-md-6">
@@ -48,10 +48,10 @@ const Detalles = () => {
         <div className="col-md-6">
           <h4>Cantidad: {quantity}</h4>
           <button className="btn btn-success mr-2" onClick={handleAdd}>
-            Agregar
+            Añadir
           </button>
-          <button className="btn btn-danger" onClick={handleRemove}>
-            Quitar
+          <button className="btn btn-primary" onClick={handleAddToCart}>
+            Agregar al Carrito
           </button>
         </div>
       </div>
@@ -60,6 +60,3 @@ const Detalles = () => {
 };
 
 export default Detalles;
-
-
-

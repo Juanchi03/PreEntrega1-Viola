@@ -1,9 +1,17 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom'
 
-const Checkout = ({ cart }) => {
+const Checkout = () => {
+  const [cart, setCart] = useState([]);
   const [total, setTotal] = useState(0);
 
-  
+  // Agregar un efecto para recuperar el carrito almacenado en el localStorage al cargar el componente
+  useEffect(() => {
+    const storedCart = JSON.parse(localStorage.getItem('cart')) || [];
+    setCart(storedCart);
+    calculateTotal();
+  }, []);
+
   const calculateTotal = () => {
     let totalAmount = 0;
     cart.forEach(item => {
@@ -12,8 +20,28 @@ const Checkout = ({ cart }) => {
     setTotal(totalAmount);
   };
 
-  
+  const removeFromCart = (itemId) => {
+    const updatedCart = cart.filter(item => item.id !== itemId);
+    localStorage.setItem('cart', JSON.stringify(updatedCart));
+    setCart(updatedCart);
+    calculateTotal();
+  };
+
+  const clearCart = () => {
+    localStorage.removeItem('cart');
+    setCart([]);
+    setTotal(0);
+  }
+
   const renderBrief = () => {
+    if (cart.length === 0) {
+      return (
+        <div>
+          <h2>El carrito está vacío</h2>
+        </div>
+      );
+    }
+
     return (
       <div>
         <h2>Resumen de la Compra</h2>
@@ -21,18 +49,17 @@ const Checkout = ({ cart }) => {
           {cart.map(item => (
             <li key={item.id}>
               {item.name} - Cantidad: {item.quantity}
+              <button onClick={() => removeFromCart(item.id)}>Eliminar</button>
             </li>
           ))}
         </ul>
-        <h4>Total: {total}</h4>
+        <button onClick={clearCart}>Vaciar Carrito</button>
+        <button className="btn btn-primary">
+          <Link to="/pagos" className="nav-link">Proceder al Pago</Link>
+          </button>
       </div>
     );
   };
-
-  
-  React.useEffect(() => {
-    calculateTotal();
-  }, [cart]);
 
   return (
     <div className="container">
@@ -40,12 +67,11 @@ const Checkout = ({ cart }) => {
         <div className="col-md-8">
           {renderBrief()}
         </div>
-        <div className="col-md-4">
-          <button className="btn btn-primary">Proceder al Pago</button>
-        </div>
       </div>
     </div>
   );
 };
 
 export default Checkout;
+
+
