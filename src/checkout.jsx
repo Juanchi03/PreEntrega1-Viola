@@ -5,7 +5,7 @@ const Checkout = () => {
   const [cart, setCart] = useState([]);
   const [total, setTotal] = useState(0);
 
-  // Agregar un efecto para recuperar el carrito almacenado en el localStorage al cargar el componente
+ 
   useEffect(() => {
     const storedCart = JSON.parse(localStorage.getItem('cart')) || [];
     setCart(storedCart);

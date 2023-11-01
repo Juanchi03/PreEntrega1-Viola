@@ -18,11 +18,11 @@ const Pagos = () => {
   }, []);
 
   const handleCompra = () => {
-    // Simulamos el procesamiento de la orden y almacenamos una ID única en localStorage
-    const orderId = Date.now(); // Generar una ID única
+    
+    const orderId = Date.now();
     localStorage.setItem('orden_' + orderId, JSON.stringify({ nombre, apellido, direccion, opcionPago, tarjetaDebito, vencimiento, dni, carrito }));
     setOrdenProcesada(true);
-    localStorage.removeItem('cart'); // Limpiar el carrito
+    localStorage.removeItem('cart'); 
   };
 
   if (ordenProcesada) {

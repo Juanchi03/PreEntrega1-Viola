@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import weaponsData from '../weaponsData'; // Importa tus datos locales
+import weaponsData from '../weaponsData'; 
 
 const ItemListContainer = () => {
   return (
